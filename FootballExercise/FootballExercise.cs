@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using FootballExcerciseService.Services;
 using FootballExcerciseService.Models;
 using FootballExerciseUtilities.Exceptions;
+using FootballExcerciseService.Transformers;
 
 namespace FootballExercise
 {
@@ -25,7 +26,7 @@ namespace FootballExercise
         {
             ResetControls();
             var teams = new List<EnglishPremierLeagueTeam>();
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (var openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Title = "Select a file to import.";
                 openFileDialog.Filter = "CSV or Data files|*.dat;*.csv";
@@ -33,9 +34,8 @@ namespace FootballExercise
                 {
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        var footballExerciseService = new EnglishPremierLeagueService();
                         var fileExtension = Path.GetExtension(openFileDialog.FileName);
-                        var fileType = GetFileExtnsionType(fileExtension);
+                        var fileExtensionType = GetFileExtnsionType(fileExtension);
                         StreamReader fileStream;
                         try
                         {
@@ -45,9 +45,9 @@ namespace FootballExercise
                         {
                             throw new ImportFileInUseException("The file used for upload is currently being used by another process");
                         }
-                        var transformer = footballExerciseService.GetTransformer(fileType);
-                        var englishPremierLeagueTeams = transformer.Transform(fileStream);
-                        var englishPremierLeagueTeam = footballExerciseService.GetTeamWithLeastGoalDifference(englishPremierLeagueTeams);
+                        var transformer = BaseTransformer.GetTransformer(fileExtensionType);
+                        var footballExerciseService = new EnglishPremierLeagueService(transformer);
+                        var englishPremierLeagueTeam = footballExerciseService.GetTeamWithLeastGoalDifference(fileStream, fileExtensionType);
                         labelLeastGoalDifferenceTeam.Text = englishPremierLeagueTeam != null ? englishPremierLeagueTeam.Name : string.Empty;
                     }
                 }

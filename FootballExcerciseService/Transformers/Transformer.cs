@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using FootballExcerciseService.Models;
+using FootballExerciseUtilities.Exceptions;
 
 namespace FootballExcerciseService.Transformers
 {
@@ -14,6 +15,21 @@ namespace FootballExcerciseService.Transformers
         public virtual List<EnglishPremierLeagueTeam> Transform(StreamReader fileStream)
         {
             return new List<EnglishPremierLeagueTeam>();
+        }
+
+        public static BaseTransformer GetTransformer(FileExtensionType fileExtensionType)
+        {
+            switch (fileExtensionType)
+            {
+                case FileExtensionType.DAT:
+                    return new DATTransformer();
+
+                case FileExtensionType.CSV:
+                    return new CSVTransformer();
+
+                default:
+                    throw new FileTypeNotSupportedException("This file extension import is not supported!");
+            }
         }
     }
 }

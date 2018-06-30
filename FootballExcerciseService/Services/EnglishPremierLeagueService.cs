@@ -5,28 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using FootballExcerciseService.Transformers;
 using FootballExcerciseService.Models;
-using FootballExerciseUtilities.Exceptions;
+using System.IO;
 
 namespace FootballExcerciseService.Services
 {
     public class EnglishPremierLeagueService : IEnglishPremierLeagueService
     {
-        public BaseTransformer GetTransformer(FileExtensionType fileExtension)
+        private ITransformer _transformer;
+        public EnglishPremierLeagueService(ITransformer transformer)
         {
-            switch (fileExtension)
-            {
-                case FileExtensionType.DAT:
-                    return new DATTransformer();
-
-                case FileExtensionType.CSV:
-                    return new CSVTransformer();
-
-                default:
-                    throw new FileTypeNotSupportedException("This file extension import is not supported!");
-            }
+            _transformer = transformer;
         }
 
-        public EnglishPremierLeagueTeam GetTeamWithLeastGoalDifference(List<EnglishPremierLeagueTeam> englishPremierLeagueTeams)
+        public EnglishPremierLeagueTeam GetTeamWithLeastGoalDifference(StreamReader fileStream, FileExtensionType fileExtension)
+        {
+            var englishPremierLeagueTeams = _transformer.Transform(fileStream);
+            return GetTeamWithLeastGoalDifference(englishPremierLeagueTeams);
+        }
+
+
+        private EnglishPremierLeagueTeam GetTeamWithLeastGoalDifference(List<EnglishPremierLeagueTeam> englishPremierLeagueTeams)
         {
             if(englishPremierLeagueTeams!=null && englishPremierLeagueTeams.Any())
             {
