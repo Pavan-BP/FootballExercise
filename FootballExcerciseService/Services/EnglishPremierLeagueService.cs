@@ -17,7 +17,7 @@ namespace FootballExcerciseService.Services
             _transformer = transformer;
         }
 
-        public List<EnglishPremierLeagueTeam> GetTeamsWithLeastGoalDifference(StreamReader fileStream, FileExtensionType fileExtension)
+        public List<EnglishPremierLeagueTeam> GetTeamsWithLeastGoalDifference(StreamReader fileStream)
         {
             var englishPremierLeagueTeams = _transformer.Transform(fileStream);
             return GetTeamWithLeastGoalDifference(englishPremierLeagueTeams);

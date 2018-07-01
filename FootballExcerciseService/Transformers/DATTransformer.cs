@@ -16,6 +16,8 @@ namespace FootballExcerciseService.Transformers
             var englishPremierLeagueTeams = new List<EnglishPremierLeagueTeam>();
             StringBuilder formattedLine;
 
+            CheckFileSize(fileStream);
+
             while ((line = fileStream.ReadLine()) != null)
             {
                 formattedLine = new StringBuilder();
@@ -41,15 +43,15 @@ namespace FootballExcerciseService.Transformers
                 var firstColumn = columns[0].Split('.');
                 var team = new EnglishPremierLeagueTeam
                 {
-                    Rank = firstColumn[0].ToNumber(),
+                    Rank = firstColumn[0].ToNumber("Team", lineIndex),
                     Name = columns[1].Trim(),
-                    MatchesPlayed = columns[2].ToNumber(),
-                    MatchesWon = columns[3].ToNumber(),
-                    MatchesLost = columns[4].ToNumber(),
-                    MatchesDrawn = columns[5].ToNumber(),
-                    GoalsFor = columns[6].ToNumber(),
-                    GoalsAgainst = columns[8].ToNumber(),
-                    Points = columns[9].ToNumber(),
+                    MatchesPlayed = columns[2].ToNumber("P", lineIndex),
+                    MatchesWon = columns[3].ToNumber("W", lineIndex),
+                    MatchesLost = columns[4].ToNumber("L", lineIndex),
+                    MatchesDrawn = columns[5].ToNumber("D", lineIndex),
+                    GoalsFor = columns[6].ToNumber("F", lineIndex),
+                    GoalsAgainst = columns[8].ToNumber("A", lineIndex),
+                    Points = columns[9].ToNumber("Pts", lineIndex),
                 };
                 englishPremierLeagueTeams.Add(team);
                 lineIndex++;

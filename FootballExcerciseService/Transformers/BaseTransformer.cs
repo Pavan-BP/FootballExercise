@@ -17,6 +17,12 @@ namespace FootballExcerciseService.Transformers
             return new List<EnglishPremierLeagueTeam>();
         }
 
+        protected virtual void CheckFileSize(StreamReader fileStream)
+        {
+            if (fileStream.Peek() <= 0)
+                throw new EmptyFileUploadException();
+        }
+
         public static BaseTransformer GetTransformer(FileExtensionType fileExtensionType)
         {
             switch (fileExtensionType)
@@ -28,7 +34,7 @@ namespace FootballExcerciseService.Transformers
                     return new CSVTransformer();
 
                 default:
-                    throw new FileTypeNotSupportedException("This file extension import is not supported!");
+                    throw new FileTypeNotSupportedException();
             }
         }
     }

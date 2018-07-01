@@ -45,7 +45,7 @@
     <Compile Include="Transformers\DATTransformer.cs" />
     <Compile Include="Models\PremierLeagueTeam.cs" />
     <Compile Include="Transformers\ITransformer.cs" />
-    <Compile Include="Transformers\Transformer.cs" />
+    <Compile Include="Transformers\BaseTransformer.cs" />
     <Compile Include="Services\EnglishPremierLeagueService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IEnglishPremierLeagueService.cs" />

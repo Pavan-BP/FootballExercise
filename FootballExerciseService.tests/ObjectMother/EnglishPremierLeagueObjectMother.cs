@@ -38,6 +38,18 @@ namespace FootballExerciseService.Tests.ObjectMother
             );
         }
 
+        public static List<EnglishPremierLeagueTeam> GetEnglishPremierLeagueTeamsWithSameGoalDifference()
+        {
+            return GetEnglishPremierLeagueTeams(
+                GetEnglishPremierLeagueTeam("Manchester United", 1, 38, 30, 0, 8, 65, 35, 98),
+                GetEnglishPremierLeagueTeam("Arsenal", 2, 38, 28, 2, 8, 60, 30, 92),
+                GetEnglishPremierLeagueTeam("Liverpool", 3, 38, 29, 6, 3, 55, 25, 90),
+                GetEnglishPremierLeagueTeam("Manchester City", 4, 38, 25, 4, 9, 50, 20, 84),
+                GetEnglishPremierLeagueTeam("Chelsea", 5, 38, 24, 5, 9, 45, 15, 15),
+                GetEnglishPremierLeagueTeam("Tottenham HotSpurs", 6, 38, 23, 6, 9, 40, 10, 78)
+            );
+        }
+
         public static List<EnglishPremierLeagueTeam> GetEnglishPremierLeagueTeams(params EnglishPremierLeagueTeam[] englishPremierLeagueTeams)
         {
             var _englishPremierLeagueTeams = new List<EnglishPremierLeagueTeam>();

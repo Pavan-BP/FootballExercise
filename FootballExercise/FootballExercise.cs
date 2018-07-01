@@ -43,11 +43,11 @@ namespace FootballExercise
                         }
                         catch (Exception)
                         {
-                            throw new ImportFileInUseException("The file used for upload is currently being used by another process");
+                            throw new ImportFileInUseException();
                         }
                         var transformer = BaseTransformer.GetTransformer(fileExtensionType);
                         var footballExerciseService = new EnglishPremierLeagueService(transformer);
-                        var englishPremierLeagueTeams = footballExerciseService.GetTeamsWithLeastGoalDifference(fileStream, fileExtensionType);
+                        var englishPremierLeagueTeams = footballExerciseService.GetTeamsWithLeastGoalDifference(fileStream);
                         if(englishPremierLeagueTeams !=null && englishPremierLeagueTeams.Any())
                         {
                             var teamNamesWithLeastGoalDifference = new StringBuilder();

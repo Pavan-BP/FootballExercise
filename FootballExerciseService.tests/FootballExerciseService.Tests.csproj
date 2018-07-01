@@ -64,16 +64,21 @@
     <Compile Include="ObjectMother\EnglishPremierLeagueObjectMother.cs" />
     <Compile Include="ServiceTests\EnglishPremierLeagueServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransformerTests\BaseTransformerTest.cs" />
+    <Compile Include="TransformerTests\CSVTransformerTests.cs" />
+    <Compile Include="TransformerTests\DATTransformerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestData\football.csv" />
-    <None Include="TestData\football.dat" />
+    <None Include="TestData\EmptyFile.csv" />
+    <None Include="TestData\EmptyFile.dat" />
+    <None Include="TestData\FootballInvalidColumn.csv" />
+    <None Include="TestData\FootballInvalidColumn.dat" />
+    <None Include="TestData\footballvalid.csv" />
+    <None Include="TestData\footballvalid.dat" />
     <None Include="TestData\Instructions.pdf" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TransformerTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FootballExcerciseService\FootballExcerciseService.csproj">
       <Project>{4536ce22-520c-4628-9d5a-9515fd3a7cff}</Project>
