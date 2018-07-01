@@ -47,8 +47,18 @@ namespace FootballExercise
                         }
                         var transformer = BaseTransformer.GetTransformer(fileExtensionType);
                         var footballExerciseService = new EnglishPremierLeagueService(transformer);
-                        var englishPremierLeagueTeam = footballExerciseService.GetTeamWithLeastGoalDifference(fileStream, fileExtensionType);
-                        labelLeastGoalDifferenceTeam.Text = englishPremierLeagueTeam != null ? englishPremierLeagueTeam.Name : string.Empty;
+                        var englishPremierLeagueTeams = footballExerciseService.GetTeamsWithLeastGoalDifference(fileStream, fileExtensionType);
+                        if(englishPremierLeagueTeams !=null && englishPremierLeagueTeams.Any())
+                        {
+                            var teamNamesWithLeastGoalDifference = new StringBuilder();
+                            foreach (var englishPremierLeagueTeam in englishPremierLeagueTeams)
+                            {
+                                teamNamesWithLeastGoalDifference.Append(englishPremierLeagueTeam.Name);
+                                teamNamesWithLeastGoalDifference.Append(", ");
+                            }
+                            labelLeastGoalDifferenceTeam.Text = teamNamesWithLeastGoalDifference.ToString();
+                        }
+                        
                     }
                 }
                 catch (FootballExerciseException ex)

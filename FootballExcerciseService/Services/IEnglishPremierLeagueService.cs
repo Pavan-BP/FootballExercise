@@ -11,7 +11,7 @@ namespace FootballExcerciseService.Services
 {
     public interface IEnglishPremierLeagueService
     {
-        EnglishPremierLeagueTeam GetTeamWithLeastGoalDifference(StreamReader fileStream, FileExtensionType fileExtension);
+        List<EnglishPremierLeagueTeam> GetTeamsWithLeastGoalDifference(StreamReader fileStream, FileExtensionType fileExtension);
 
     }
 }

@@ -17,18 +17,19 @@ namespace FootballExcerciseService.Services
             _transformer = transformer;
         }
 
-        public EnglishPremierLeagueTeam GetTeamWithLeastGoalDifference(StreamReader fileStream, FileExtensionType fileExtension)
+        public List<EnglishPremierLeagueTeam> GetTeamsWithLeastGoalDifference(StreamReader fileStream, FileExtensionType fileExtension)
         {
             var englishPremierLeagueTeams = _transformer.Transform(fileStream);
             return GetTeamWithLeastGoalDifference(englishPremierLeagueTeams);
         }
 
 
-        private EnglishPremierLeagueTeam GetTeamWithLeastGoalDifference(List<EnglishPremierLeagueTeam> englishPremierLeagueTeams)
+        private List<EnglishPremierLeagueTeam> GetTeamWithLeastGoalDifference(List<EnglishPremierLeagueTeam> englishPremierLeagueTeams)
         {
             if(englishPremierLeagueTeams!=null && englishPremierLeagueTeams.Any())
             {
-                return englishPremierLeagueTeams.OrderBy(x => x.GoalDifference).Take(1).FirstOrDefault();
+                var leastGoalDifference = englishPremierLeagueTeams.OrderBy(x => x.GoalDifference).Take(1).FirstOrDefault().GoalDifference;
+                return englishPremierLeagueTeams.FindAll(x => x.GoalDifference == leastGoalDifference);
             }
             return null;
         }

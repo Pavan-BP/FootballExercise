@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballExcerciseService", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballExerciseUtilities", "ootballExerciseUtilities\FootballExerciseUtilities.csproj", "{D116DB4C-CD2C-429C-AE9D-0C9764ED0CAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballExerciseService.Tests", "FootballExerciseService.tests\FootballExerciseService.Tests.csproj", "{D789570A-C08E-48BE-826A-9B620E1962E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D116DB4C-CD2C-429C-AE9D-0C9764ED0CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D116DB4C-CD2C-429C-AE9D-0C9764ED0CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D116DB4C-CD2C-429C-AE9D-0C9764ED0CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D789570A-C08E-48BE-826A-9B620E1962E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D789570A-C08E-48BE-826A-9B620E1962E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D789570A-C08E-48BE-826A-9B620E1962E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D789570A-C08E-48BE-826A-9B620E1962E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

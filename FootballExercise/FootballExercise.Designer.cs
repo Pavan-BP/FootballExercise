@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.labelErrorMessage = new System.Windows.Forms.Label();
             this.labelLeastGoalDifference = new System.Windows.Forms.Label();
             this.labelLeastGoalDifferenceTeam = new System.Windows.Forms.Label();
             this.buttonFileBrowse = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,10 +47,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(538, 157);
             this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
             // 
             // labelErrorMessage
             // 
@@ -71,15 +67,15 @@
             this.labelLeastGoalDifference.Margin = new System.Windows.Forms.Padding(5, 5, 0, 5);
             this.labelLeastGoalDifference.MinimumSize = new System.Drawing.Size(160, 13);
             this.labelLeastGoalDifference.Name = "labelLeastGoalDifference";
-            this.labelLeastGoalDifference.Size = new System.Drawing.Size(178, 13);
+            this.labelLeastGoalDifference.Size = new System.Drawing.Size(183, 13);
             this.labelLeastGoalDifference.TabIndex = 1;
-            this.labelLeastGoalDifference.Text = "Team with the least goal difference: ";
+            this.labelLeastGoalDifference.Text = "Teams with the least goal difference: ";
             // 
             // labelLeastGoalDifferenceTeam
             // 
             this.labelLeastGoalDifferenceTeam.AutoSize = true;
             this.labelLeastGoalDifferenceTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLeastGoalDifferenceTeam.Location = new System.Drawing.Point(183, 31);
+            this.labelLeastGoalDifferenceTeam.Location = new System.Drawing.Point(188, 31);
             this.labelLeastGoalDifferenceTeam.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.labelLeastGoalDifferenceTeam.MinimumSize = new System.Drawing.Size(280, 0);
             this.labelLeastGoalDifferenceTeam.Name = "labelLeastGoalDifferenceTeam";
@@ -96,6 +92,10 @@
             this.buttonFileBrowse.Text = "Browse";
             this.buttonFileBrowse.UseVisualStyleBackColor = true;
             this.buttonFileBrowse.Click += new System.EventHandler(this.buttonFileBrowse_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
             // 
             // FootballExercise
             // 
