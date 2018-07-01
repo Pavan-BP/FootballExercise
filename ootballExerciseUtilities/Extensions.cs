@@ -17,7 +17,7 @@ namespace FootballExerciseUtilities
             else
             {
                 var errorMessage = "Invalid value in column: "+ columnName + " on Linenumber: " + rowNumber + ".";
-                throw new InvalidColumnTypeOnTransformationException(errorMessage);
+                throw new InvalidFileFormatException(errorMessage);
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FootballExcerciseService.Models;
 using FootballExerciseUtilities;
+using FootballExerciseUtilities.Exceptions;
 
 namespace FootballExcerciseService.Transformers
 {
@@ -19,18 +20,30 @@ namespace FootballExcerciseService.Transformers
             var lineIndex = 1;
             var englishPremierLeagueTeams = new List<EnglishPremierLeagueTeam>();
 
-            CheckFileSize(fileStream);
+            EmptyFileValidation(fileStream);
             
-
-            while ((line = fileStream.ReadLine()) != null)
+            while ((line = fileStream.ReadLine()) != null )
             {
-                if (lineIndex == HEADER_LINE_INDEX || lineIndex == SEPARATOR_LINE_INDEX)
+                if (string.IsNullOrWhiteSpace(line))
+                    throw new InvalidFileFormatException();
+
+                if (lineIndex == HEADER_LINE_INDEX)
                 {
+                    FileHeaderValidation(line);
                     lineIndex++;
                     continue;
                 }
-                var columns = line.Split(separator);
-                var firstColumn = columns[0].Split('.');
+                if (lineIndex == SEPARATOR_LINE_INDEX)
+                {
+                    FileSeparatorValidation(line);
+                    lineIndex++;
+                    continue;
+                }
+
+                FileRowValidation(lineIndex);
+                
+                var columns = line.Split(DELIMITER);
+                var firstColumn = columns[0].Split(RANK_NAME_DELIMITER);
                 var englishPremierLeagueTeam = new EnglishPremierLeagueTeam
                 {
                     Rank = firstColumn[0].ToNumber("Team", lineIndex),

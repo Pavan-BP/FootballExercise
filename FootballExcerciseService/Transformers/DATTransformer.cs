@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using FootballExcerciseService.Models;
 using FootballExerciseUtilities;
+using FootballExerciseUtilities.Exceptions;
 
 namespace FootballExcerciseService.Transformers
 {
@@ -14,34 +15,33 @@ namespace FootballExcerciseService.Transformers
             string line;
             var lineIndex = 1;
             var englishPremierLeagueTeams = new List<EnglishPremierLeagueTeam>();
-            StringBuilder formattedLine;
 
-            CheckFileSize(fileStream);
+            EmptyFileValidation(fileStream);
 
             while ((line = fileStream.ReadLine()) != null)
             {
-                formattedLine = new StringBuilder();
-                if (lineIndex == HEADER_LINE_INDEX || lineIndex == SEPARATOR_LINE_INDEX)
+                if (string.IsNullOrWhiteSpace(line))
+                    throw new InvalidFileFormatException();
+
+                if (lineIndex == HEADER_LINE_INDEX)
                 {
+                    FileHeaderValidation(line);
                     lineIndex++;
                     continue;
                 }
-                if (string.IsNullOrWhiteSpace(line))
-                    continue;
-                line = line.Replace(" ", ",");
-                var columns = line.Split(separator);
-                
-                foreach (var column in columns)
+                if (lineIndex == SEPARATOR_LINE_INDEX)
                 {
-                    if (!string.IsNullOrWhiteSpace(column))
-                    {
-                        formattedLine.Append(column);
-                        formattedLine.Append(separator);
-                    }
+                    FileSeparatorValidation(line.Trim());
+                    lineIndex++;
+                    continue;
                 }
-                columns = formattedLine.ToString().Split(separator);
-                var firstColumn = columns[0].Split('.');
-                var team = new EnglishPremierLeagueTeam
+
+                string[] columns = FormatLineToCSVSeperated(ref line);
+                var firstColumn = columns[0].Split(RANK_NAME_DELIMITER);
+
+                TeamColumnValidation(firstColumn);
+
+                var englishPremierLeagueTeam = new EnglishPremierLeagueTeam
                 {
                     Rank = firstColumn[0].ToNumber("Team", lineIndex),
                     Name = columns[1].Trim(),
@@ -53,10 +53,43 @@ namespace FootballExcerciseService.Transformers
                     GoalsAgainst = columns[8].ToNumber("A", lineIndex),
                     Points = columns[9].ToNumber("Pts", lineIndex),
                 };
-                englishPremierLeagueTeams.Add(team);
+                englishPremierLeagueTeams.Add(englishPremierLeagueTeam);
                 lineIndex++;
             }
             return englishPremierLeagueTeams;
         }
+
+        protected override void FileHeaderValidation(string line)
+        {
+            string[] headerColumns = FormatLineToCSVSeperated(ref line);
+            if (headerColumns == null || headerColumns.Length != FILE_COLUMN_COUNT+1)
+                throw new InvalidFileFormatException();
+        }
+
+        private string[] FormatLineToCSVSeperated(ref string line)
+        {
+            StringBuilder formattedLine = new StringBuilder();
+            line = line.Trim();
+            line = line.Replace(' ', DELIMITER);
+            var columns = line.Split(DELIMITER);
+
+            foreach (var column in columns)
+            {
+                if (!string.IsNullOrWhiteSpace(column))
+                {
+                    formattedLine.Append(column);
+                    formattedLine.Append(DELIMITER);
+                }
+            }
+            columns = formattedLine.ToString().Split(DELIMITER);
+            return columns;
+        }
+
+        private void TeamColumnValidation(string[] firstColumn)
+        {
+            if (!string.IsNullOrWhiteSpace(firstColumn[1]))
+                throw new InvalidFileFormatException("The file format is invalid. Please provide a space between team name and team rank after the .(dot).");
+        }
+        
     }
 }

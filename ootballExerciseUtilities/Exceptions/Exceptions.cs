@@ -64,16 +64,16 @@ namespace FootballExerciseUtilities.Exceptions
         }
     }
 
-    public class InvalidColumnTypeOnTransformationException : FootballExerciseException
+    public class InvalidFileFormatException : FootballExerciseException
     {
-        private const string _exceptionMessage = "Cannot upload the file as it is in in the agreed format.";
+        private const string _exceptionMessage = "Cannot upload the file as it is not in the agreed format.";
 
-        public InvalidColumnTypeOnTransformationException() : base(_exceptionMessage)
+        public InvalidFileFormatException() : base(_exceptionMessage)
         {
 
         }
 
-        public InvalidColumnTypeOnTransformationException(string message) : base(message)
+        public InvalidFileFormatException(string message) : base(message)
         {
 
         }

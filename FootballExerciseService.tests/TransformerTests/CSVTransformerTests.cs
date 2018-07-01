@@ -79,7 +79,7 @@ namespace FootballExerciseService.tests.TransformerTests
                 catch (Exception ex)
                 {
                     //Assert
-                    Assert.IsInstanceOfType(ex, typeof(InvalidColumnTypeOnTransformationException));
+                    Assert.IsInstanceOfType(ex, typeof(InvalidFileFormatException));
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace FootballExerciseService.tests.TransformerTests
                 catch (Exception ex)
                 {
                     //Assert
-                    Assert.IsInstanceOfType(ex, typeof(InvalidColumnTypeOnTransformationException));
+                    Assert.IsInstanceOfType(ex, typeof(InvalidFileFormatException));
                     Assert.IsTrue(ex.Message.ToUpperInvariant() == expectedErrorMessage.ToUpperInvariant());
                 }
             }
