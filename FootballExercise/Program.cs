@@ -1,8 +1,11 @@
-﻿using System;
+﻿using FootballExcerciseService.Services;
+using FootballExercise.FootballExerciseUnityConfiguration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Unity;
 
 namespace FootballExercise
 {
@@ -16,7 +19,9 @@ namespace FootballExercise
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FootballExercise());
+            FootballExerciseContainerConfigurator.RegisterDependencies();
+            var englishPremierLeagueService = FootballExerciseContainerConfigurator.FootballExerciseContainer.Resolve<IEnglishPremierLeagueService>();
+            Application.Run(new FootballExercise(englishPremierLeagueService));
         }
     }
 }

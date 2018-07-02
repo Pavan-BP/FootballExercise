@@ -12,13 +12,16 @@ namespace FootballExcerciseService.Services
     public class EnglishPremierLeagueService : IEnglishPremierLeagueService
     {
         private ITransformer _transformer;
-        public EnglishPremierLeagueService(ITransformer transformer)
+        private ITransformerFactory _transformerfactory;
+
+        public EnglishPremierLeagueService(ITransformerFactory transformerfactory)
         {
-            _transformer = transformer;
+            _transformerfactory = transformerfactory;
         }
 
-        public List<EnglishPremierLeagueTeam> GetTeamsWithLeastGoalDifference(StreamReader fileStream)
+        public List<EnglishPremierLeagueTeam> GetTeamsWithLeastGoalDifference(StreamReader fileStream, FileExtensionType fileExtensionType)
         {
+            _transformer = _transformerfactory.FetchTransformer(fileExtensionType);
             var englishPremierLeagueTeams = _transformer.Transform(fileStream);
             return GetTeamWithLeastGoalDifference(englishPremierLeagueTeams);
         }

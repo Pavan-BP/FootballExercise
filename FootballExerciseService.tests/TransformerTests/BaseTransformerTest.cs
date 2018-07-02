@@ -16,50 +16,50 @@ namespace FootballExerciseService.tests.TransformerTests
     {
         private FileExtensionType _fileExtensionType;
 
-        [TestMethod]
-        public void BaseTransformer_GetTransformer_Returns_CSVTransformer_Instance_On_CSV_File_Upload()
-        {
-            //Arrange
-            _fileExtensionType = FileExtensionType.CSV;
+        //[TestMethod]
+        //public void BaseTransformer_GetTransformer_Returns_CSVTransformer_Instance_On_CSV_File_Upload()
+        //{
+        //    //Arrange
+        //    _fileExtensionType = FileExtensionType.CSV;
 
-            //Act
-            var result = BaseTransformer.GetTransformer(_fileExtensionType);
+        //    //Act
+        //    var result = BaseTransformer.GetTransformer(_fileExtensionType);
 
-            //Assert
-            Assert.IsInstanceOfType(result, typeof(CSVTransformer));
+        //    //Assert
+        //    Assert.IsInstanceOfType(result, typeof(CSVTransformer));
 
-        }
+        //}
 
-        [TestMethod]
-        public void BaseTransformer_GetTransformer_Returns_DATTransformer_Instance_On_DAT_File_Upload()
-        {
-            //Arrange
-            _fileExtensionType = FileExtensionType.DAT;
+        //[TestMethod]
+        //public void BaseTransformer_GetTransformer_Returns_DATTransformer_Instance_On_DAT_File_Upload()
+        //{
+        //    //Arrange
+        //    _fileExtensionType = FileExtensionType.DAT;
 
-            //Act
-            var result = BaseTransformer.GetTransformer(_fileExtensionType);
+        //    //Act
+        //    var result = BaseTransformer.GetTransformer(_fileExtensionType);
 
-            //Assert
-            Assert.IsInstanceOfType(result, typeof(DATTransformer));
+        //    //Assert
+        //    Assert.IsInstanceOfType(result, typeof(DATTransformer));
 
-        }
+        //}
 
-        [TestMethod]
-        public void BaseTransformer_GetTransformer_Throws_FileTypeNotSupportedException_On_File_Upload_With_OTHER_Extension()
-        {
-            //Arrange
-            _fileExtensionType = FileExtensionType.OTHER;
+        //[TestMethod]
+        //public void BaseTransformer_GetTransformer_Throws_FileTypeNotSupportedException_On_File_Upload_With_OTHER_Extension()
+        //{
+        //    //Arrange
+        //    _fileExtensionType = FileExtensionType.OTHER;
 
-            //Act
-            try
-            {
-                BaseTransformer.GetTransformer(_fileExtensionType);
-            }
-            catch (Exception ex)
-            {
-                //Assert
-                Assert.IsInstanceOfType(ex, typeof(FileTypeNotSupportedException));
-            }
-        }
+        //    //Act
+        //    try
+        //    {
+        //        BaseTransformer.GetTransformer(_fileExtensionType);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //Assert
+        //        Assert.IsInstanceOfType(ex, typeof(FileTypeNotSupportedException));
+        //    }
+        //}
     }
 }

@@ -16,26 +16,6 @@ namespace FootballExcerciseService.Transformers
         protected const string SEPARATOR = "-";
         protected const char DELIMITER = ',';
 
-        public static BaseTransformer GetTransformer(FileExtensionType fileExtensionType)
-        {
-            switch (fileExtensionType)
-            {
-                case FileExtensionType.DAT:
-                    return new DATTransformer();
-
-                case FileExtensionType.CSV:
-                    return new CSVTransformer();
-
-                default:
-                    throw new FileTypeNotSupportedException();
-            }
-        }
-
-        public virtual List<EnglishPremierLeagueTeam> Transform(StreamReader fileStream)
-        {
-            return new List<EnglishPremierLeagueTeam>();
-        }
-
         protected virtual void EmptyFileValidation(StreamReader fileStream)
         {
             if (fileStream.Peek() <= 0)
@@ -59,6 +39,12 @@ namespace FootballExcerciseService.Transformers
         {
             if(rowCount > FILE_ROW_COUNT)
                 throw new InvalidFileFormatException();
+        }
+
+        public virtual List<EnglishPremierLeagueTeam> Transform(StreamReader fileStream)
+        {
+            //literally do nothing;
+            return new List<EnglishPremierLeagueTeam>();
         }
     }
 }

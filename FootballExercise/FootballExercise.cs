@@ -17,9 +17,11 @@ namespace FootballExercise
 {
     public partial class FootballExercise : Form
     {
-        public FootballExercise()
+        private IEnglishPremierLeagueService _englishPremierLeagueService;
+        public FootballExercise(IEnglishPremierLeagueService englishPremierLeagueService)
         {
             InitializeComponent();
+            _englishPremierLeagueService = englishPremierLeagueService;
         }
 
         private void buttonFileBrowse_Click(object sender, EventArgs e)
@@ -45,9 +47,8 @@ namespace FootballExercise
                         {
                             throw new ImportFileInUseException();
                         }
-                        var transformer = BaseTransformer.GetTransformer(fileExtensionType);
-                        var footballExerciseService = new EnglishPremierLeagueService(transformer);
-                        var englishPremierLeagueTeams = footballExerciseService.GetTeamsWithLeastGoalDifference(fileStream);
+                        
+                        var englishPremierLeagueTeams = _englishPremierLeagueService.GetTeamsWithLeastGoalDifference(fileStream, fileExtensionType);
                         if(englishPremierLeagueTeams !=null && englishPremierLeagueTeams.Any())
                         {
                             var teamNamesWithLeastGoalDifference = new StringBuilder();

@@ -8,7 +8,7 @@ using FootballExerciseUtilities.Exceptions;
 
 namespace FootballExcerciseService.Transformers
 {
-    public class DATTransformer : BaseTransformer
+    public class DATTransformer : BaseTransformer, ITransformer
     {
         public override List<EnglishPremierLeagueTeam> Transform(StreamReader fileStream)
         {
