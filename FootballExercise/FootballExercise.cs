@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +24,7 @@ namespace FootballExercise
         private void buttonFileBrowse_Click(object sender, EventArgs e)
         {
             ResetControls();
-            var teams = new List<EnglishPremierLeagueTeam>();
+            List<EnglishPremierLeagueTeam> englishPremierLeagueTeams;
             using (var openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Title = "Select a file to import.";
@@ -37,18 +34,20 @@ namespace FootballExercise
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         var fileExtension = Path.GetExtension(openFileDialog.FileName);
-                        var fileExtensionType = GetFileExtnsionType(fileExtension);
+                        var fileExtensionType = GetFileExtensionType(fileExtension);
                         StreamReader fileStream;
                         try
                         {
-                            fileStream = new StreamReader(openFileDialog.OpenFile());
+                            using (fileStream = new StreamReader(openFileDialog.OpenFile()))
+                            {
+                                englishPremierLeagueTeams = _englishPremierLeagueService.GetTeamsWithLeastGoalDifference(fileStream, fileExtensionType);
+                            }                                
                         }
                         catch (Exception)
                         {
                             throw new ImportFileInUseException();
                         }
-                        
-                        var englishPremierLeagueTeams = _englishPremierLeagueService.GetTeamsWithLeastGoalDifference(fileStream, fileExtensionType);
+                                                
                         if(englishPremierLeagueTeams !=null && englishPremierLeagueTeams.Any())
                         {
                             var teamNamesWithLeastGoalDifference = new StringBuilder();
@@ -57,9 +56,8 @@ namespace FootballExercise
                                 teamNamesWithLeastGoalDifference.Append(englishPremierLeagueTeam.Name);
                                 teamNamesWithLeastGoalDifference.Append(", ");
                             }
-                            labelLeastGoalDifferenceTeam.Text = teamNamesWithLeastGoalDifference.ToString();
-                        }
-                        
+                            labelLeastGoalDifferenceTeam.Text = teamNamesWithLeastGoalDifference.ToString().TrimEnd(',', ' ');
+                        }                        
                     }
                 }
                 catch (FootballExerciseException ex)
@@ -78,7 +76,7 @@ namespace FootballExercise
             labelErrorMessage.Text = message;
         }
 
-        private static FileExtensionType GetFileExtnsionType(string fileExtension)
+        private static FileExtensionType GetFileExtensionType(string fileExtension)
         {
             switch (fileExtension.ToUpperInvariant())
             {

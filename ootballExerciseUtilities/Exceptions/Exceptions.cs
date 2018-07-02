@@ -66,7 +66,7 @@ namespace FootballExerciseUtilities.Exceptions
 
     public class InvalidFileFormatException : FootballExerciseException
     {
-        private const string _exceptionMessage = "Cannot upload the file as it is not in the agreed format.";
+        private const string _exceptionMessage = "Cannot process the file as it is not in the agreed format.";
 
         public InvalidFileFormatException() : base(_exceptionMessage)
         {

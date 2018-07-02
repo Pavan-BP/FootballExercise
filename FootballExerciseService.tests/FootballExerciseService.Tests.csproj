@@ -64,7 +64,7 @@
     <Compile Include="ObjectMother\EnglishPremierLeagueObjectMother.cs" />
     <Compile Include="ServiceTests\EnglishPremierLeagueServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransformerTests\BaseTransformerTest.cs" />
+    <Compile Include="TransformerTests\TransformerFactoryTests.cs" />
     <Compile Include="TransformerTests\CSVTransformerTests.cs" />
     <Compile Include="TransformerTests\DATTransformerTest.cs" />
   </ItemGroup>
