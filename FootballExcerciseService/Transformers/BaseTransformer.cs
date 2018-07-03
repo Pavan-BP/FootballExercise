@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using FootballExcerciseService.Models;
 using FootballExerciseUtilities.Exceptions;
 
@@ -15,6 +16,7 @@ namespace FootballExcerciseService.Transformers
         protected const char RANK_NAME_DELIMITER = '.';
         protected const string SEPARATOR = "-";
         protected const char DELIMITER = ',';
+        protected string[] expectedColumnHeaders = new string[] { "Team", "P", "W", "L", "D", "F", "-", "A", "Pts" };
 
         protected virtual void EmptyFileValidation(StreamReader fileStream)
         {
@@ -27,6 +29,27 @@ namespace FootballExcerciseService.Transformers
             var headerColumns = headerLine.Split(DELIMITER);
             if(headerColumns == null || headerColumns.Length != FILE_COLUMN_COUNT)
                 throw new InvalidFileFormatException();
+            ColumnSequenceValidation(headerColumns);
+        }
+
+        protected virtual void ColumnSequenceValidation(string[] headerColumns)
+        {
+            var errorList = new StringBuilder();
+            int i = 0;
+            for(i=0; i< FILE_COLUMN_COUNT; i++)
+            {
+                if(headerColumns[i].ToUpperInvariant() != expectedColumnHeaders[i].ToUpperInvariant())
+                {
+                    errorList.Append(headerColumns[i]);
+                    errorList.Append(", ");
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(errorList.ToString()))
+            {
+                errorList.ToString().TrimStart(',', ' ');
+                errorList.ToString().TrimEnd(',',' ');
+                throw new InvalidFileFormatException("The columns " + errorList.ToString() + " are not in agreed correct sequence.");
+            }
         }
 
         protected virtual void FileSeparatorValidation(string separatorLine)

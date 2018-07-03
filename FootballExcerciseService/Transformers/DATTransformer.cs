@@ -64,6 +64,7 @@ namespace FootballExcerciseService.Transformers
             string[] headerColumns = FormatLineToCSVSeperated(ref line);
             if (headerColumns == null || headerColumns.Length != FILE_COLUMN_COUNT+1)
                 throw new InvalidFileFormatException();
+            ColumnSequenceValidation(headerColumns);
         }
 
         private string[] FormatLineToCSVSeperated(ref string line)

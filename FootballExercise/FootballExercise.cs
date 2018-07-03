@@ -41,14 +41,14 @@ namespace FootballExercise
                             using (fileStream = new StreamReader(openFileDialog.OpenFile()))
                             {
                                 englishPremierLeagueTeams = _englishPremierLeagueService.GetTeamsWithLeastGoalDifference(fileStream, fileExtensionType);
-                            }                                
+                            }                              
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new ImportFileInUseException();
+                            throw;
                         }
-                                                
-                        if(englishPremierLeagueTeams !=null && englishPremierLeagueTeams.Any())
+                        
+                        if (englishPremierLeagueTeams !=null && englishPremierLeagueTeams.Any())
                         {
                             var teamNamesWithLeastGoalDifference = new StringBuilder();
                             foreach (var englishPremierLeagueTeam in englishPremierLeagueTeams)
@@ -60,13 +60,9 @@ namespace FootballExercise
                         }                        
                     }
                 }
-                catch (FootballExerciseException ex)
+                catch (Exception ex)
                 {
                     ShowErrorMessage(ex.Message);
-                }
-                catch (Exception)
-                {
-                    ShowErrorMessage("There was an issue when uploading the file. Please try again later.");
                 }
             }
         }
