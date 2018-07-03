@@ -70,13 +70,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestData\EmptyFile.csv" />
-    <None Include="TestData\EmptyFile.dat" />
-    <None Include="TestData\FootballInvalidColumn.csv" />
-    <None Include="TestData\FootballInvalidColumn.dat" />
-    <None Include="TestData\footballvalid.csv" />
-    <None Include="TestData\footballvalid.dat" />
-    <None Include="TestData\Instructions.pdf" />
+    <None Include="TestData\ColumnsInterchanged\FootballColumnInterchanged.csv" />
+    <None Include="TestData\ColumnsInterchanged\FootballColumnInterchanged.dat" />
+    <None Include="TestData\CorrectDataAndFormat\football.csv" />
+    <None Include="TestData\CorrectDataAndFormat\football.dat" />
+    <None Include="TestData\EmptyFiles\EmptyFile.csv" />
+    <None Include="TestData\EmptyFiles\EmptyFile.dat" />
+    <None Include="TestData\EmptyRows\FootballHavingEmptyRowsInBetween.csv" />
+    <None Include="TestData\EmptyRows\FootballHavingEmptyRowsInBetween.dat" />
+    <None Include="TestData\ExtraColumns\FootballHavingExtraColumns.csv" />
+    <None Include="TestData\ExtraColumns\FootballHavingExtraColumns.dat" />
+    <None Include="TestData\ExtraRows\FootballWithExtraRows.csv" />
+    <None Include="TestData\ExtraRows\FootballWithExtraRows.dat" />
+    <None Include="TestData\IncorrectData\FootballInCorrectData.csv" />
+    <None Include="TestData\IncorrectData\FootballInCorrectData.dat" />
+    <None Include="TestData\LesserColumns\FootballWithLesserColumns.csv" />
+    <None Include="TestData\LesserColumns\FootballWithLesserColumns.dat" />
+    <None Include="TestData\RandomRowSeparator\FootballRandomRowSeparator.csv" />
+    <None Include="TestData\RandomRowSeparator\FootballRandomRowSeparator.dat" />
+    <None Include="TestData\WrongColumnHeaders\FootballWrongColumnHeaders.csv" />
+    <None Include="TestData\WrongColumnHeaders\FootballWrongColumnHeaders.dat" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -88,9 +101,6 @@
       <Project>{d116db4c-cd2c-429c-ae9d-0c9764ed0caa}</Project>
       <Name>FootballExerciseUtilities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestData\test.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

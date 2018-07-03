@@ -31,10 +31,8 @@ namespace FootballExcerciseService.Services
             {
                 throw;
             }
-            
         }
-
-
+        
         private List<EnglishPremierLeagueTeam> GetTeamWithLeastGoalDifference(List<EnglishPremierLeagueTeam> englishPremierLeagueTeams)
         {
             if(englishPremierLeagueTeams!=null && englishPremierLeagueTeams.Any())

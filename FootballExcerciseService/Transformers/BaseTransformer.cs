@@ -10,7 +10,6 @@ namespace FootballExcerciseService.Transformers
     public abstract class BaseTransformer: ITransformer
     {
         protected const int HEADER_LINE_INDEX = 1;
-        protected const int FILE_ROW_COUNT = 22;
         protected const int FILE_COLUMN_COUNT = 9;
         protected const char RANK_NAME_DELIMITER = '.';
         protected const string SEPERATOR_REGEX = ".*-";
@@ -60,7 +59,7 @@ namespace FootballExcerciseService.Transformers
             {
                 errorList.ToString().TrimStart(',', ' ');
                 errorList.ToString().TrimEnd(',',' ');
-                throw new InvalidFileFormatException("The columns " + errorList.ToString() + " are not in agreed correct sequence.");
+                throw new InvalidFileFormatException("The columns " + errorList.ToString() + " are incorrect or not in correct sequence.");
             }
         }
 

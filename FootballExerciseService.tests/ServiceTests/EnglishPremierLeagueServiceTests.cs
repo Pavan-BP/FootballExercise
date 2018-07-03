@@ -7,7 +7,7 @@ using FootballExcerciseService.Transformers;
 using FootballExerciseService.Tests.ObjectMother;
 using FootballExcerciseService.Models;
 
-namespace FootballExerciseService.Tests
+namespace FootballExerciseService.Tests.ServiceTests
 {
     [TestClass]
     public class EnglishPremierLeagueServiceTests
@@ -93,7 +93,7 @@ namespace FootballExerciseService.Tests
         public void EnglishPremierLeagueService_GetTeamWithLeastGoalDifference_Returns_Null_On_Empty_CSV_File_Upload()
         {
             //Arrange
-            _transformer.Setup(x => x.Transform(null)).Returns(new List<EnglishPremierLeagueTeam>());
+            _transformer.Setup(x => x.Transform(It.IsAny<StreamReader>())).Returns(new List<EnglishPremierLeagueTeam>());
 
             //Act
             var result = _target.GetTeamsWithLeastGoalDifference(null,FileExtensionType.CSV);
@@ -106,7 +106,7 @@ namespace FootballExerciseService.Tests
         public void EnglishPremierLeagueService_GetTeamWithLeastGoalDifference_Returns_Null_On_Empty_DAT_File_Upload()
         {
             //Arrange
-            _transformer.Setup(x => x.Transform(null)).Returns(new List<EnglishPremierLeagueTeam>());
+            _transformer.Setup(x => x.Transform(It.IsAny<StreamReader>())).Returns(new List<EnglishPremierLeagueTeam>());
 
             //Act
             var result = _target.GetTeamsWithLeastGoalDifference(null, FileExtensionType.DAT);

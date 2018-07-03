@@ -9,7 +9,7 @@ using FootballExcerciseService.Models;
 using FootballExerciseUtilities.Exceptions;
 using Moq;
 
-namespace FootballExerciseService.tests.TransformerTests
+namespace FootballExerciseService.Tests.TransformerTests
 {
 
     [TestClass]
@@ -22,7 +22,6 @@ namespace FootballExerciseService.tests.TransformerTests
         public void Init()
         {
             _target = new TransformerFactory();
-
         }
 
         [TestMethod]
@@ -56,7 +55,7 @@ namespace FootballExerciseService.tests.TransformerTests
         }
 
         [TestMethod]
-        public void BaseTransformer_GetTransformer_Throws_FileTypeNotSupportedException_On_File_Upload_With_OTHER_Extension()
+        public void TransformerFactory_GetTransformer_Throws_FileTypeNotSupportedException_On_File_Upload_With_OTHER_Extension()
         {
             //Arrange
             _fileExtensionType = FileExtensionType.OTHER;
