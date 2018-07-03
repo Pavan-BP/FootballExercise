@@ -35,7 +35,7 @@ namespace FootballExerciseService.Tests
             //Arrange
             
             //Act
-            var result = _target.GetTeamsWithLeastGoalDifference(null, FileExtensionType.CSV);
+            var result = _target.GetTeamsWithLeastGoalDifference(It.IsAny<StreamReader>(), FileExtensionType.CSV);
 
             //Assert
             Assert.IsNotNull(result);
@@ -49,7 +49,7 @@ namespace FootballExerciseService.Tests
             //Arrange
 
             //Act
-            var result = _target.GetTeamsWithLeastGoalDifference(null, FileExtensionType.DAT);
+            var result = _target.GetTeamsWithLeastGoalDifference(It.IsAny<StreamReader>(), FileExtensionType.DAT);
 
             //Assert
             Assert.IsNotNull(result);
@@ -61,11 +61,11 @@ namespace FootballExerciseService.Tests
         public void EnglishPremierLeagueService_GetTeamWithLeastGoalDifference_Fetches_Right_Result_On_Multiple_Teams_With_Same_GoalDifference_On_CSV_Upload()
         {
             //Arrange
-            _transformer.Setup(x => x.Transform(null)).
+            _transformer.Setup(x => x.Transform(It.IsAny<StreamReader>())).
                 Returns(EnglishPremierLeagueObjectMother.GetEnglishPremierLeagueTeamsWithSameGoalDifference());
 
             //Act
-            var result = _target.GetTeamsWithLeastGoalDifference(null, FileExtensionType.CSV);
+            var result = _target.GetTeamsWithLeastGoalDifference(It.IsAny<StreamReader>(), FileExtensionType.CSV);
 
             //Assert
             Assert.IsNotNull(result);
@@ -77,11 +77,11 @@ namespace FootballExerciseService.Tests
         public void EnglishPremierLeagueService_GetTeamWithLeastGoalDifference_Fetches_Right_Result_On_Multiple_Teams_With_Same_GoalDifference_On_DAT_Upload()
         {
             //Arrange
-            _transformer.Setup(x => x.Transform(null)).
+            _transformer.Setup(x => x.Transform(It.IsAny<StreamReader>())).
                 Returns(EnglishPremierLeagueObjectMother.GetEnglishPremierLeagueTeamsWithSameGoalDifference());
 
             //Act
-            var result = _target.GetTeamsWithLeastGoalDifference(null, FileExtensionType.DAT);
+            var result = _target.GetTeamsWithLeastGoalDifference(It.IsAny<StreamReader>(), FileExtensionType.DAT);
 
             //Assert
             Assert.IsNotNull(result);

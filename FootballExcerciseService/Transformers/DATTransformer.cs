@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using FootballExcerciseService.Models;
 using FootballExerciseUtilities;
 using FootballExerciseUtilities.Exceptions;
@@ -10,6 +11,7 @@ namespace FootballExcerciseService.Transformers
 {
     public class DATTransformer : BaseTransformer, ITransformer
     {
+        protected new int FILE_COLUMN_COUNT = 10;
         public override List<EnglishPremierLeagueTeam> Transform(StreamReader fileStream)
         {
             string line;
@@ -23,20 +25,26 @@ namespace FootballExcerciseService.Transformers
                 if (string.IsNullOrWhiteSpace(line))
                     throw new InvalidFileFormatException();
 
+                line = line.Replace('\t', ' ');
+                string[] columns = FormatLineToCSVSeperated(line);
+
                 if (lineIndex == HEADER_LINE_INDEX)
                 {
-                    FileHeaderValidation(line);
-                    lineIndex++;
-                    continue;
-                }
-                if (lineIndex == SEPARATOR_LINE_INDEX)
-                {
-                    FileSeparatorValidation(line.Trim());
+                    FileHeaderValidation(columns);
                     lineIndex++;
                     continue;
                 }
 
-                string[] columns = FormatLineToCSVSeperated(ref line);
+                //ignore the row if it has only seperator
+                if (Regex.IsMatch(columns[0].Trim(), SEPERATOR_REGEX))
+                {
+                    lineIndex++;
+                    continue;
+                }
+                    
+
+                ColumnCountValidation(columns, FILE_COLUMN_COUNT);
+
                 var firstColumn = columns[0].Split(RANK_NAME_DELIMITER);
 
                 TeamColumnValidation(firstColumn);
@@ -51,7 +59,7 @@ namespace FootballExcerciseService.Transformers
                     MatchesDrawn = columns[5].ToNumber("D", lineIndex),
                     GoalsFor = columns[6].ToNumber("F", lineIndex),
                     GoalsAgainst = columns[8].ToNumber("A", lineIndex),
-                    Points = columns[9].ToNumber("Pts", lineIndex),
+                    Points = columns[9].ToNumber("Pts", lineIndex)
                 };
                 englishPremierLeagueTeams.Add(englishPremierLeagueTeam);
                 lineIndex++;
@@ -59,18 +67,9 @@ namespace FootballExcerciseService.Transformers
             return englishPremierLeagueTeams;
         }
 
-        protected override void FileHeaderValidation(string line)
-        {
-            string[] headerColumns = FormatLineToCSVSeperated(ref line);
-            if (headerColumns == null || headerColumns.Length != FILE_COLUMN_COUNT+1)
-                throw new InvalidFileFormatException();
-            ColumnSequenceValidation(headerColumns);
-        }
-
-        private string[] FormatLineToCSVSeperated(ref string line)
+        private string[] FormatLineToCSVSeperated(string line)
         {
             StringBuilder formattedLine = new StringBuilder();
-            line = line.Trim();
             line = line.Replace(' ', DELIMITER);
             var columns = line.Split(DELIMITER);
 
@@ -82,7 +81,7 @@ namespace FootballExcerciseService.Transformers
                     formattedLine.Append(DELIMITER);
                 }
             }
-            columns = formattedLine.ToString().Split(DELIMITER);
+            columns = formattedLine.ToString().TrimEnd(',').Split(DELIMITER);
             return columns;
         }
 

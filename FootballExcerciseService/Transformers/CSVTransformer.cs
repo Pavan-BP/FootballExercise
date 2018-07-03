@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using FootballExcerciseService.Models;
 using FootballExerciseUtilities;
 using FootballExerciseUtilities.Exceptions;
@@ -12,7 +13,6 @@ namespace FootballExcerciseService.Transformers
 {
     public class CSVTransformer : BaseTransformer
     {
-        //private new char separator = ',';
 
         public override List<EnglishPremierLeagueTeam> Transform(StreamReader fileStream)
         {
@@ -27,22 +27,25 @@ namespace FootballExcerciseService.Transformers
                 if (string.IsNullOrWhiteSpace(line))
                     throw new InvalidFileFormatException();
 
+                var columns = line.Split(DELIMITER);
+
                 if (lineIndex == HEADER_LINE_INDEX)
                 {
-                    FileHeaderValidation(line);
-                    lineIndex++;
-                    continue;
-                }
-                if (lineIndex == SEPARATOR_LINE_INDEX)
-                {
-                    FileSeparatorValidation(line);
+                    FileHeaderValidation(columns);
                     lineIndex++;
                     continue;
                 }
 
-                FileRowValidation(lineIndex);
-                
-                var columns = line.Split(DELIMITER);
+                //ignore the row if it has seperator
+                if (Regex.IsMatch(columns[0].Trim(), SEPERATOR_REGEX))
+                {
+                    lineIndex++;
+                    continue;
+                }
+                    
+
+                ColumnCountValidation(columns);
+
                 var firstColumn = columns[0].Split(RANK_NAME_DELIMITER);
                 var englishPremierLeagueTeam = new EnglishPremierLeagueTeam
                 {
