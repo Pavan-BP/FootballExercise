@@ -13,6 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballExerciseService.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2457EEF0-24DB-4E00-AEC5-D41AD5DB64A2}"
 	ProjectSection(SolutionItems) = preProject
+		football.csv = football.csv
+		football.dat = football.dat
+		Instructions.pdf = Instructions.pdf
 		ReadMe.docx = ReadMe.docx
 	EndProjectSection
 EndProject
