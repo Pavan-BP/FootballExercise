@@ -87,9 +87,9 @@
             this.buttonFileBrowse.Location = new System.Drawing.Point(5, 54);
             this.buttonFileBrowse.Margin = new System.Windows.Forms.Padding(5);
             this.buttonFileBrowse.Name = "buttonFileBrowse";
-            this.buttonFileBrowse.Size = new System.Drawing.Size(75, 23);
+            this.buttonFileBrowse.Size = new System.Drawing.Size(144, 23);
             this.buttonFileBrowse.TabIndex = 3;
-            this.buttonFileBrowse.Text = "Browse";
+            this.buttonFileBrowse.Text = "Browse a csv or a dat file";
             this.buttonFileBrowse.UseVisualStyleBackColor = true;
             this.buttonFileBrowse.Click += new System.EventHandler(this.buttonFileBrowse_Click);
             // 
